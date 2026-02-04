@@ -7,11 +7,19 @@ services:
       - 8099
       - 4897
     environment:
+<<<<<<< HEAD
       - TZ=${TZ:-UTC}
+=======
+      - TZ="UTC"
+>>>>>>> 08fd043 (feat: add edgeconnector fanuc and aggregator templates (#189))
     volumes:
       - config_data:/config
       - mqtt_data:/mqtt
 
 volumes:
   config_data:
+<<<<<<< HEAD
   mqtt_data:
+=======
+  mqtt_data:
+>>>>>>> 08fd043 (feat: add edgeconnector fanuc and aggregator templates (#189))
