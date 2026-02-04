@@ -1268,6 +1268,13 @@
       "description": "No-code middleware for industrial applications",
       "note": "More information about the <a href=\"https://www.opc-router.com/terms-of-use-and-eula/?utm_source=DockerHub_runtime&utm_medium=click&utm_campaign=TermsOfUseAndEula\" target=\"_blank\">EULA</a>.",
       "stackfile": "https://raw.githubusercontent.com/portainer/templates/master/edge/opc-router/docker-compose.yml"
+    },
+	{
+      "type": 4,
+      "title": "Fuuz Device Gateway",
+      "description": A secure gateway that connects on-premise devices, PLCs, and data sources to the Fuuz Cloud for seamless, real-time integration.",
+	  "note": "Fill out the configuration below, by default this will be accessible at http://{IP_Address}:5500. If you have questions or issues with setup, review our documentation at support.fuuz.com or contact support at support@fuuz.com"
+      "stackfile": "https://raw.githubusercontent.com/portainer/templates/master/edge/fuuz-device-gateway/docker-compose.yml"
     }
   ]
 }
