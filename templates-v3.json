@@ -1555,7 +1555,7 @@
       "platform": "linux",
       "logo": "https://www.emqx.com/favicon.ico",
       "repository": {
-        "url": "https://github.com/drewheimerman/portainer-templates/",
+        "url": "https://github.com/drewheimerman/portainer-templates/add-emqx-enterprise-custom-template",
         "stackfile": "stacks/emqx-enterprise/docker-compose.yml"
       },
       "env": [
