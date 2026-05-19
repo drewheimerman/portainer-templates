@@ -1547,15 +1547,15 @@
     },
     {
       "id": 73,
-      "type": 3,
+      "type": 2,
       "title": "Fuuz In-House Trial",
-      "description": "The Industrial Intelligence Platform",
-      "note": "",
+      "description": "Deploy the Fuuz AI-driven Industrial Intelligence Platform. Unify manufacturing operations across MES, WMS, CMMS, and Quality with built-in DataOps integration, rapid application development, and an event-native architecture — or build your own custom manufacturing applications.",
+      "note": "For information on how to setup this template please visit our documentation here: https://support.fuuz.com/portal/en/kb/articles/setting-up-in-house-fuuz before you continue.",
       "categories": ["OPS", "MES", "WMS"],
       "platform": "linux",
       "logo": "https://mfgx-public.s3.us-east-1.amazonaws.com/assets/Favicon_A_60x60.png",
       "repository": {
-        "url": "https://code.mfgx.io/scm/fp/fuuz-in-house",
+        "url": "https://code.mfgx.io/scm/fp/fuuz-in-house.git",
         "stackfile": "trial-stack.yml"
       },
       "env": [
@@ -1563,6 +1563,30 @@
           "name": "FUUZ_LICENSE_KEY",
           "label": "License key",
           "description": "The license key provided by Fuuz. After signing up you will receive this in an email. Ensure you copied the entire license key otherwise it will not properly validate."
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_USERNAME",
+          "label": "Mongo Root Username",
+          "description": "Root username for MongoDB. This is used to log into the database and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a custom user.",
+          "default": "mongodb"
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_PASSWORD",
+          "label": "Mongo Root Password",
+          "description": "Root password for MongoDB. This is used to log into the database and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a strong password.",
+          "default": "admin"
+        },
+        {
+          "name": "RABBITMQ_DEFAULT_USER",
+          "label": "RabbitMQ Root Username",
+          "description": "Root username for RabbitMQ. This is used to log into the RabbitMQ Admin Dashboard and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a custom user.",
+          "default": "rabbitmq"
+        },
+        {
+          "name": "RABBITMQ_DEFAULT_PASS",
+          "label": "RabbitMQ Root Password",
+          "description": "Root password for RabbitMQ. This is used to log into the RabbitMQ Admin Dashboard and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a strong password.",
+          "default": "admin"
         },
         {
           "name": "SMTP_PORT",
@@ -1609,20 +1633,26 @@
         {
           "name": "AWS_S3_ACCESS_KEY_ID",
           "label": "S3 Access Key",
-          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files. You can alternatively use your own S3 account to persist files.",
-          "default": "LSIAfuuzInHouse"
+          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files.",
+          "default": "LSIAaccessKey"
         },
         {
           "name": "AWS_S3_SECRET_ACCESS_KEY",
           "label": "S3 Secret Key",
-          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files. You can alternatively use your own S3 account to persist files.",
-          "default": "LSIAfuuzInHouseSecretKey"
+          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files.",
+          "default": "LSIAsecretKey"
+        },
+        {
+          "name": "AWS_S3_BUCKET_NAME",
+          "label": "Bucket Name",
+          "description": "By default when using the localstack container this will be fuuz-bucket. This only needs to be changed if you are persisting files in S3.",
+          "default": "fuuz-bucket"
         },
         {
           "name": "AWS_S3_ENDPOINT_URL",
           "label": "AWS S3 Endpoint Url",
-          "default": "http://localhost.localstack.cloud:4566",
-          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files. You can alternatively use your own S3 account to persist files."
+          "default": "http://localstack.fuuz.localhost",
+          "description": "By default this uses the localstack container running within the stack. If you are using localstack, this url will be in the format 'http://localstack.${MFGX_ENTERPRISE_DOMAIN}'. If you change the MFGX_ENTERPRISE_DOMAIN ensure you update this to match. If you change this value after storing files you will lose access to those files. If you are using S3 set this with your regions url (ex: https://s3.us-east-1.amazonaws.com)."
         },
         {
           "name": "AWS_S3_FORCE_PATH_STYLE",
@@ -1638,7 +1668,23 @@
               "value": "false"
             }
           ],
-          "description": "If you are using S3 instead of localstack set this to 'No', otherwise leave the default."
+          "description": "If you are using S3 instead of localstack set this to No, otherwise leave the default."
+        },
+        {
+          "name": "ENABLE_LOCALSTACK",
+          "label": "Enable Localstack",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true",
+              "default": true
+            },
+            {
+              "text": "No",
+              "value": "false"
+            }
+          ],
+          "description": "When true, a proxy route will be setup to direct traffic to the localstack container. If you are using S3 this should be set to false."
         },
         {
           "name": "MFGX_ENTERPRISE_DOMAIN",
@@ -1650,7 +1696,7 @@
           "name": "JWT_EXPIRES_IN",
           "label": "Token Expiration",
           "default": "15m",
-          "description": "How long a token will live for before it needs to be refreshed. This uses the format defined by moment '2 hours', '60m' etc."
+          "description": "Duration before a token needs refreshing. Examples: '15m', '2h', '1d'."
         },
         {
           "name": "JWT_MAX_AGE",
@@ -1698,7 +1744,7 @@
               "value": "15"
             }
           ],
-          "description": "The number of nodes that can execute concurrently."
+          "description": "How many nodes in a data flow can execute concurrently. Scale further by adding orchestration-worker replicas — each replica adds this many concurrent node executions."
         },
         {
           "name": "ENGINE_LOGGING_EXECUTION_SUCCEEDED",
@@ -1714,7 +1760,7 @@
               "default": true
             }
           ],
-          "description": "When true, the engine will log every successful node executions in data flows. It is recommended to leave this as false unless debugging as the database will grow in size rapidly."
+          "description": "When true, the engine will log every successful node execution in data flows. It is recommended to leave this as false unless debugging as the database will grow in size rapidly."
         }
       ]
     },
