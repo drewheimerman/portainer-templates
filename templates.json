@@ -1546,7 +1546,7 @@
       }
     },
     {
-      "id": 73,
+      "id": 72,
       "type": 2,
       "title": "Fuuz In-House Trial",
       "description": "Deploy the Fuuz AI-driven Industrial Intelligence Platform. Unify manufacturing operations across MES, WMS, CMMS, and Quality with built-in DataOps integration, rapid application development, and an event-native architecture — or build your own custom manufacturing applications.",
@@ -1765,7 +1765,7 @@
       ]
     },
     {
-      "id": 74,
+      "id": 73,
       "type": 1,
       "title": "Fuuz Device Gateway",
       "description": "A secure gateway that connects on-premise devices, PLCs, and data sources to the Fuuz Cloud for seamless, real-time integration.",
@@ -1848,6 +1848,18 @@
           "container": "/fuuzdevicegateway/drivers/"
         }
       ]
+      "id": 74,
+      "type": 3,
+      "title": "MaestroHub",
+      "description": "Industrial data orchestrator with a Unified Namespace, drag-and-drop pipelines, and 40+ protocol connectors. Built-in MCP server brings AI agents into your operational data stack.",
+      "note": "Welcome to MaestroHub!\n\n• Open http://&lt;host&gt;:8080 to create your admin account\n• MQTT clients can connect to &lt;host&gt;:1883 (TCP) or &lt;host&gt;:8083 (WebSocket)\n• Data persists in the maestrohub-data Docker volume — back it up before destroying the stack\n• Get started guide: https://docs.maestrohub.com/overview/get-started",
+      "categories": ["edge"],
+      "platform": "linux",
+      "logo": "https://avatars.githubusercontent.com/u/219120420?s=400&u=699c593f7490c79736e08eec580fd9af40278576&v=4",
+      "repository": {
+        "url": "https://github.com/portainer/templates",
+        "stackfile": "edge/maestrohub/docker-compose.yml"
+      }
     }
   ]
 }
