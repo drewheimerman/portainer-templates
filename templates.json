@@ -1547,6 +1547,310 @@
     },
     {
       "id": 72,
+      "type": 2,
+      "title": "Fuuz In-House Trial",
+      "description": "Deploy the Fuuz AI-driven Industrial Intelligence Platform. Unify manufacturing operations across MES, WMS, CMMS, and Quality with built-in DataOps integration, rapid application development, and an event-native architecture — or build your own custom manufacturing applications.",
+      "note": "For information on how to setup this template please visit our documentation here: https://support.fuuz.com/portal/en/kb/articles/setting-up-in-house-fuuz before you continue.",
+      "categories": ["OPS", "MES", "WMS"],
+      "platform": "linux",
+      "logo": "https://mfgx-public.s3.us-east-1.amazonaws.com/assets/Favicon_A_60x60.png",
+      "repository": {
+        "url": "https://code.mfgx.io/scm/fp/fuuz-in-house.git",
+        "stackfile": "trial-stack.yml"
+      },
+      "env": [
+        {
+          "name": "FUUZ_LICENSE_KEY",
+          "label": "License key",
+          "description": "The license key provided by Fuuz. After signing up you will receive this in an email. Ensure you copied the entire license key otherwise it will not properly validate."
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_USERNAME",
+          "label": "Mongo Root Username",
+          "description": "Root username for MongoDB. This is used to log into the database and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a custom user.",
+          "default": "mongodb"
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_PASSWORD",
+          "label": "Mongo Root Password",
+          "description": "Root password for MongoDB. This is used to log into the database and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a strong password.",
+          "default": "admin"
+        },
+        {
+          "name": "RABBITMQ_DEFAULT_USER",
+          "label": "RabbitMQ Root Username",
+          "description": "Root username for RabbitMQ. This is used to log into the RabbitMQ Admin Dashboard and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a custom user.",
+          "default": "rabbitmq"
+        },
+        {
+          "name": "RABBITMQ_DEFAULT_PASS",
+          "label": "RabbitMQ Root Password",
+          "description": "Root password for RabbitMQ. This is used to log into the RabbitMQ Admin Dashboard and should be kept secure. The value is defaulted to ease of setup for the trial, it's strongly reccomended to create a strong password.",
+          "default": "admin"
+        },
+        {
+          "name": "SMTP_PORT",
+          "label": "SMTP Port",
+          "description": "Port number for the SMTP server (default is 587)",
+          "default": "587"
+        },
+        {
+          "name": "SMTP_HOST",
+          "label": "SMTP Host",
+          "description": "Hostname or IP address of the SMTP server"
+        },
+        {
+          "name": "SMTP_USER",
+          "label": "SMTP User",
+          "description": "Username for SMTP server authentication"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "label": "SMTP Password",
+          "description": "Password for SMTP server authentication"
+        },
+        {
+          "name": "SMTP_SECURE",
+          "label": "SMTP Secure",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true"
+            },
+            {
+              "text": "No",
+              "value": "false",
+              "default": true
+            }
+          ],
+          "description": "Whether the connection should use SSL/TLS"
+        },
+        {
+          "name": "SMTP_FROM_EMAIL_ADDRESS",
+          "label": "SMTP From Address",
+          "description": "The email address that will appear in the 'From' field of outgoing emails"
+        },
+        {
+          "name": "AWS_S3_ACCESS_KEY_ID",
+          "label": "S3 Access Key",
+          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files.",
+          "default": "LSIAaccessKey"
+        },
+        {
+          "name": "AWS_S3_SECRET_ACCESS_KEY",
+          "label": "S3 Secret Key",
+          "description": "By default this uses the localstack container running within the stack. If you change this value after storing files you will lose access to those files.",
+          "default": "LSIAsecretKey"
+        },
+        {
+          "name": "AWS_S3_BUCKET_NAME",
+          "label": "Bucket Name",
+          "description": "By default when using the localstack container this will be fuuz-bucket. This only needs to be changed if you are persisting files in S3.",
+          "default": "fuuz-bucket"
+        },
+        {
+          "name": "AWS_S3_ENDPOINT_URL",
+          "label": "AWS S3 Endpoint Url",
+          "default": "http://localstack.fuuz.localhost",
+          "description": "By default this uses the localstack container running within the stack. If you are using localstack, this url will be in the format 'http://localstack.${MFGX_ENTERPRISE_DOMAIN}'. If you change the MFGX_ENTERPRISE_DOMAIN ensure you update this to match. If you change this value after storing files you will lose access to those files. If you are using S3 set this with your regions url (ex: https://s3.us-east-1.amazonaws.com)."
+        },
+        {
+          "name": "AWS_S3_FORCE_PATH_STYLE",
+          "label": "AWS S3 Force Path Style",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true",
+              "default": true
+            },
+            {
+              "text": "No",
+              "value": "false"
+            }
+          ],
+          "description": "If you are using S3 instead of localstack set this to No, otherwise leave the default."
+        },
+        {
+          "name": "ENABLE_LOCALSTACK",
+          "label": "Enable Localstack",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true",
+              "default": true
+            },
+            {
+              "text": "No",
+              "value": "false"
+            }
+          ],
+          "description": "When true, a proxy route will be setup to direct traffic to the localstack container. If you are using S3 this should be set to false."
+        },
+        {
+          "name": "MFGX_ENTERPRISE_DOMAIN",
+          "label": "Enterprise Domain Name",
+          "default": "fuuz.localhost",
+          "description": "The domain name used to access the Fuuz In-House application. By default this will resolve to fuuz.localhost so it can resolve to a local machine. The backend service api will always be defined as `api.<domain>`. If you are creating DNS records for this ensure you include both `api.<domain>` and `<domain>` in your DNS configuration."
+        },
+        {
+          "name": "JWT_EXPIRES_IN",
+          "label": "Token Expiration",
+          "default": "15m",
+          "description": "Duration before a token needs refreshing. Examples: '15m', '2h', '1d'."
+        },
+        {
+          "name": "JWT_MAX_AGE",
+          "label": "Token Max Age",
+          "default": "90m",
+          "description": "How long a token can live for before the user needs to re-authenticate. This should always be greater than the Token Expiration."
+        },
+        {
+          "name": "ALLOW_NON_SSL",
+          "label": "Allow Non SSL Connections",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true",
+              "default": true
+            },
+            {
+              "text": "No",
+              "value": "false"
+            }
+          ],
+          "description": "By default the stack is not configured to use SSL/TLS. Set this to false if you want the proxy to upgrade any HTTP requests to HTTPS. You will need to provide valid certificates for this to work properly."
+        },
+        {
+          "name": "CERT_DIR",
+          "label": "Certificate Directory",
+          "default": "/fuuz/certs",
+          "description": "Defines where we should look for certificates for the reverse proxy. These aren't required by default as the proxy will generate self-signed certs if no cert is found. The certs need to be named <domain>.crt and <domain>.key to be detected. Review the nginx-proxy logs on startup to determine whether it loaded your certs or generated self-signed ones."
+        },
+        {
+          "name": "ENGINE_OPTIONS_CONCURRENCY",
+          "label": "Data Flow Node Concurrency",
+          "select": [
+            {
+              "text": "5",
+              "value": "5"
+            },
+            {
+              "text": "10",
+              "value": "10",
+              "default": true
+            },
+            {
+              "text": "15",
+              "value": "15"
+            }
+          ],
+          "description": "How many nodes in a data flow can execute concurrently. Scale further by adding orchestration-worker replicas — each replica adds this many concurrent node executions."
+        },
+        {
+          "name": "ENGINE_LOGGING_EXECUTION_SUCCEEDED",
+          "label": "Log Data Flow Node Success",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true"
+            },
+            {
+              "text": "No",
+              "value": "false",
+              "default": true
+            }
+          ],
+          "description": "When true, the engine will log every successful node execution in data flows. It is recommended to leave this as false unless debugging as the database will grow in size rapidly."
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "type": 1,
+      "title": "Fuuz Device Gateway",
+      "description": "A secure gateway that connects on-premise devices, PLCs, and data sources to the Fuuz Cloud for seamless, real-time integration.",
+      "note": "Fill out the configuration below, by default this will be accessible at http://{IP_Address}:5500. If you have questions or issues with setup, review our documentation at support.fuuz.com or contact support at support@fuuz.com",
+      "categories": ["OPS", "MES", "WMS"],
+      "platform": "linux",
+      "logo": "https://mfgx-public.s3.us-east-1.amazonaws.com/assets/Favicon_A_60x60.png",
+      "image": "public.ecr.aws/n9a9v7z5/mfgx-native-app-device-gateway-server:latest",
+      "ports": ["5500:5500/tcp", "5501:5501/tcp"],
+      "env": [
+        {
+          "name": "FUUZ_API_KEY",
+          "label": "API Key",
+          "description": "When the Fuuz API key is provided, the gateway will connect to the cloud on startup and not require the API Key to be created at first launch."
+        },
+        {
+          "name": "FUUZ_GATEWAY_AUTO_UPDATE",
+          "label": "Enable Auto Update",
+          "select": [
+            {
+              "text": "Yes",
+              "value": "true",
+              "default": true
+            },
+            {
+              "text": "No",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "name": "FUUZ_GATEWAY_LOG_LEVEL",
+          "label": "Log Level",
+          "select": [
+            {
+              "text": "Error",
+              "value": "error"
+            },
+            {
+              "text": "Warn",
+              "value": "warn"
+            },
+            {
+              "text": "Info",
+              "value": "info",
+              "default": true
+            },
+            {
+              "text": "Debug",
+              "value": "debug"
+            },
+            {
+              "text": "Verbose",
+              "value": "verbose"
+            }
+          ]
+        },
+        {
+          "name": "FUUZ_GATEWAY_LOG_RETENTION_DAYS",
+          "label": "Log Retention Days",
+          "default": "30"
+        },
+        {
+          "name": "FUUZ_GATEWAY_PORT",
+          "label": "Gateway Port",
+          "default": "5500"
+        },
+        {
+          "name": "FUUZ_GATEWAY_LISTEN_ADDRESS",
+          "label": "Listen Address",
+          "default": "0.0.0.0"
+        }
+      ],
+      "command": "/fuuzdevicegateway/fuuzdevicegateway",
+      "volumes": [
+        {
+          "container": "/root/.fuuzdevicegateway/"
+        },
+        {
+          "container": "/fuuzdevicegateway/drivers/"
+        }
+      ]
+    },
+    {
+      "id": 74,
       "type": 3,
       "title": "MaestroHub",
       "description": "Industrial data orchestrator with a Unified Namespace, drag-and-drop pipelines, and 40+ protocol connectors. Built-in MCP server brings AI agents into your operational data stack.",
