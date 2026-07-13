@@ -1873,7 +1873,7 @@
       "platform": "linux",
       "logo": "https://www.emqx.com/favicon.ico",
       "repository": {
-        "url": "https://github.com/drewheimerman/templates",
+        "url": "https://github.com/drewheimerman/portainer-templates",
         "stackfile": "stacks/emqx-enterprise/docker-compose.yml"
       },
       "env": [
