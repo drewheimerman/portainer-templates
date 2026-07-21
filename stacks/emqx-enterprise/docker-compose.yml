@@ -42,7 +42,7 @@ services:
       - EMQX_CLUSTER__DISCOVERY_STRATEGY=dns
       - EMQX_CLUSTER__DNS__RECORD_TYPE=a
       - EMQX_CLUSTER__DNS__NAME=emqx-core
-      - EMQX_LICENSE__KEY={{EMQX_LICENSE_KEY}}
+      - EMQX_LICENSE__KEY=${EMQX_LICENSE_KEY}
     ports:
       - 1883:1883
       - 8083:8083
