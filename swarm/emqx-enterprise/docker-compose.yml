@@ -7,7 +7,7 @@ services:
       restart_policy:
         condition: any
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:18083/status"]
+      test: ["CMD", "/opt/emqx/bin/emqx_ctl", "status"]
       interval: 5s
       timeout: 25s
       retries: 5
@@ -18,20 +18,20 @@ services:
       - EMQX_CLUSTER__DISCOVERY_STRATEGY=dns
       - EMQX_CLUSTER__DNS__RECORD_TYPE=a
       - EMQX_CLUSTER__DNS__NAME=emqx-core
-      - EMQX_DASHBOARD__DEFAULT_USERNAME=${EMQX_DASHBOARD__DEFAULT_USERNAME:-admin}
-      - EMQX_DASHBOARD__DEFAULT_PASSWORD=${EMQX_DASHBOARD__DEFAULT_PASSWORD:-public}
-      - EMQX_LICENSE__KEY={{EMQX_LICENSE_KEY}}
+      - EMQX_DASHBOARD__DEFAULT_USERNAME
+      - EMQX_DASHBOARD__DEFAULT_PASSWORD
+      - EMQX_LICENSE__KEY
     volumes:
       - emqx_core_data:/opt/emqx/data
 
   emqx-replicant:
     image: emqx/emqx-enterprise:6.1.1
     deploy:
-      replicas: ${EMQX_REPLICANT_NODES:-3}
+      replicas: 3
       restart_policy:
         condition: any
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:18083/status"]
+      test: ["CMD", "/opt/emqx/bin/emqx_ctl", "status"]
       interval: 5s
       timeout: 25s
       retries: 5
@@ -42,7 +42,7 @@ services:
       - EMQX_CLUSTER__DISCOVERY_STRATEGY=dns
       - EMQX_CLUSTER__DNS__RECORD_TYPE=a
       - EMQX_CLUSTER__DNS__NAME=emqx-core
-      - EMQX_LICENSE__KEY={{EMQX_LICENSE_KEY}}
+      - EMQX_LICENSE__KEY
     ports:
       - 1883:1883
       - 8083:8083
