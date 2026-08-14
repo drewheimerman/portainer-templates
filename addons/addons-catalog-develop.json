@@ -21,7 +21,7 @@
       "icon": "/assets/addons/portainer-run.svg",
       "path": "/addons/portainer-run",
       "serviceUrl": "http://portainer-run.portainer-addon-portainer-run.svc.cluster.local",
-      "healthCheckPath": "/config"
+      "healthCheckPath": "/healthz"
     }
   ]
 }
