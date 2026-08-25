@@ -1881,6 +1881,25 @@
         { "name": "EMQX_DASHBOARD__DEFAULT_USERNAME", "label": "Dashboard username", "default": "admin" },
         { "name": "EMQX_DASHBOARD__DEFAULT_PASSWORD", "label": "Dashboard password", "default": "public" }
       ]
+    },
+    {
+      "id": 76,
+      "type": 3,
+      "title": "Softing SDEX Suite",
+      "description": "Connect PLCs and CNCs from multiple manufacturers and provide their industrial data to IT applications via OPC UA and MQTT.",
+      "note": "Deploys the SDEX Suite container with basic configurations.",
+      "categories": ["edge"],
+      "platform": "linux",
+      "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/softing.png",
+      "repository": {
+        "url": "https://github.com/drewheimerman/portainer-templates",
+        "stackfile": "edge/docker-compose.yml"
+      },
+      "env": [
+        { "name": "EMQX_LICENSE__KEY", "label": "EMQX License Key", "description": "License key for EMQX Enterprise" },
+        { "name": "EMQX_DASHBOARD__DEFAULT_USERNAME", "label": "Dashboard username", "default": "admin" },
+        { "name": "EMQX_DASHBOARD__DEFAULT_PASSWORD", "label": "Dashboard password", "default": "public" }
+      ]
     }
   ]
 }
