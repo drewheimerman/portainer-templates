@@ -1893,12 +1893,10 @@
       "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/softing.png",
       "repository": {
         "url": "https://github.com/drewheimerman/portainer-templates",
-        "stackfile": "edge/docker-compose.yml"
+        "stackfile": "edge/sdex-suite/docker-compose.yml"
       },
       "env": [
-        { "name": "EMQX_LICENSE__KEY", "label": "EMQX License Key", "description": "License key for EMQX Enterprise" },
-        { "name": "EMQX_DASHBOARD__DEFAULT_USERNAME", "label": "Dashboard username", "default": "admin" },
-        { "name": "EMQX_DASHBOARD__DEFAULT_PASSWORD", "label": "Dashboard password", "default": "public" }
+        { "name": "TZ", "label": "Timezone", "description": "TZ with format \"America/New_York\"" }
       ]
     }
   ]
