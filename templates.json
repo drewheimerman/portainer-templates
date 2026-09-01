@@ -1819,5 +1819,6 @@
         "url": "https://github.com/portainer/templates",
         "stackfile": "edge/sorba-sde/docker-compose.yml"
       }
+    }
   ]
 }
