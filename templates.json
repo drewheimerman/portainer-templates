@@ -1831,7 +1831,7 @@
       "logo": "https://www.emqx.com/favicon.ico",
       "repository": {
         "url": "https://github.com/drewheimerman/portainer-templates",
-        "stackfile": "stacks/emqx-enterprise/docker-stack.yml"
+        "stackfile": "swarm/emqx-enterprise/docker-compose.yml"
       },
       "env": [
         {
